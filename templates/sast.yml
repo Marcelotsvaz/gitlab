@@ -1,0 +1,31 @@
+SAST - Semgrep:
+    stage: !reference [ .testStage, stage ]
+    
+    image: ${CI_TEMPLATE_REGISTRY_HOST}/security-products/semgrep:4
+    
+    variables:
+        SEARCH_MAX_DEPTH: 20
+    
+    script:
+      - /analyzer run
+    
+    artifacts:
+        reports:
+            sast: gl-sast-report.json
+    
+    allow_failure: true
+    
+    rules:
+      - exists:
+          - '**/*.c'
+          - '**/*.cs'
+          - '**/*.go'
+          - '**/*.html'
+          - '**/*.java'
+          - '**/*.js'
+          - '**/*.jsx'
+          - '**/*.py'
+          - '**/*.sc'
+          - '**/*.scala'
+          - '**/*.ts'
+          - '**/*.tsx'
