@@ -1,4 +1,7 @@
 SAST - Semgrep:
+    inherit:
+        default: false
+    
     stage: !reference [ .testStage, stage ]
     
     image: ${CI_TEMPLATE_REGISTRY_HOST}/security-products/semgrep:4
