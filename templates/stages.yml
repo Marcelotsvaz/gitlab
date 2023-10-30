@@ -1,11 +1,11 @@
 stages:
-  - &build 🛠️  Build
-  - &test 🧪  Test
-  - &staging 🏗️  Staging
-  - &testStaging 🧪🏗️  Test Staging
-  - &cleanup 🗑️  Clean Up
-  - &deploy 🚀  Deploy
-  - &release 📦  Release
+  - !reference [ .buildStage, stage ]
+  - !reference [ .testStage, stage ]
+  - !reference [ .stagingStage, stage ]
+  - !reference [ .testStagingStage, stage ]
+  - !reference [ .cleanupStage, stage ]
+  - !reference [ .deployStage, stage ]
+  - !reference [ .releaseStage, stage ]
 
 
 
@@ -13,64 +13,66 @@ stages:
 # Templates.
 #-------------------------------------------------------------------------------
 .baseStage:
-  script:
-    - echo Running job '${CI_JOB_NAME}' with an empty script.
+    script:
+      - echo Running job '${CI_JOB_NAME}' with an empty script.
 
 
-.runOnTags:
-  rules:
-    - if: $CI_COMMIT_TAG_MESSAGE
+.onlyOnMergeRequests:
+    rules:
+      - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 
-.runOnMergeRequests:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+.onlyOnTags:
+    rules:
+      - if: $CI_COMMIT_TAG_MESSAGE
 
 
 
 # 
 # Stages.
 #-------------------------------------------------------------------------------
-.build:
-  stage: *build
-  extends: .baseStage
+.buildStage:
+    stage: 🛠️ Build
+    extends:
+      - .baseStage
 
 
-.test:
-  stage: *test
-  extends: .baseStage
+.testStage:
+    stage: 🧪 Test
+    extends:
+      - .baseStage
 
 
-.staging:
-  stage: *staging
-  extends:
-    - .baseStage
-    - .runOnMergeRequests
+.stagingStage:
+    stage: 🏗️ Staging
+    extends:
+      - .baseStage
+      - .onlyOnMergeRequests
 
 
-.testStaging:
-  stage: *testStaging
-  extends:
-    - .baseStage
-    - .runOnMergeRequests
+.testStagingStage:
+    stage: 🧪🏗️ Test Staging
+    extends:
+      - .baseStage
+      - .onlyOnMergeRequests
 
 
-.cleanup:
-  stage: *cleanup
-  extends:
-    - .baseStage
-    - .runOnMergeRequests
+.cleanupStage:
+    stage: 🗑️ Clean Up
+    extends:
+      - .baseStage
+      - .onlyOnMergeRequests
 
 
-.deploy:
-  stage: *deploy
-  extends:
-    - .baseStage
-    - .runOnTags
+.deployStage:
+    stage: 🚀 Deploy
+    extends:
+      - .baseStage
+      - .onlyOnTags
 
 
-.release:
-  stage: *release
-  extends:
-    - .baseStage
-    - .runOnTags
+.releaseStage:
+    stage: 📦 Release
+    extends:
+      - .baseStage
+      - .onlyOnTags
