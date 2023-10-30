@@ -2,33 +2,33 @@
 
 
 workflow:
-  name: ${pipelineName}
-  
-  rules:
-      # Fix duplicated pipelines on merge requests.
-    - if: $CI_PIPELINE_SOURCE == 'push' && $CI_OPEN_MERGE_REQUESTS
-      when: never
+    name: ${pipelineName}
     
-      # Branches.
-    - if: $CI_COMMIT_BRANCH
-      variables:
-        pipelineName: Pipeline for Branch '${CI_COMMIT_BRANCH}'
+    rules:
+        # Fix duplicated pipelines on merge requests.
+      - if: $CI_PIPELINE_SOURCE == 'push' && $CI_OPEN_MERGE_REQUESTS
+        when: never
     
-      # Merge requests.
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-      variables:
-        pipelineName: Pipeline for Merge Request '${CI_MERGE_REQUEST_TITLE}'
+        # Branches.
+      - if: $CI_COMMIT_BRANCH
+        variables:
+            pipelineName: Pipeline for Branch '${CI_COMMIT_BRANCH}'
     
-      # Tags.
-    - if: $CI_COMMIT_TAG_MESSAGE
-      variables:
-        pipelineName: Release Pipeline for Tag '${CI_COMMIT_TAG}'
+        # Merge requests.
+      - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+        variables:
+            pipelineName: Pipeline for Merge Request '${CI_MERGE_REQUEST_TITLE}'
     
-      # Schedules.
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-      variables:
-        pipelineName: Scheduled Pipeline for Branch '${CI_COMMIT_BRANCH}'
+        # Tags.
+      - if: $CI_COMMIT_TAG_MESSAGE
+        variables:
+            pipelineName: Release Pipeline for Tag '${CI_COMMIT_TAG}'
     
-      # Others.
-    -  variables:
-        pipelineName: Misc Pipeline from source '${CI_PIPELINE_SOURCE}'
+        # Schedules.
+      - if: $CI_PIPELINE_SOURCE == 'schedule'
+        variables:
+            pipelineName: Scheduled Pipeline for Branch '${CI_COMMIT_BRANCH}'
+    
+        # Others.
+      - variables:
+            pipelineName: Misc Pipeline from source '${CI_PIPELINE_SOURCE}'
