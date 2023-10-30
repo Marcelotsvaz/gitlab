@@ -1,0 +1,76 @@
+stages:
+  - &build 🛠️  Build
+  - &test 🧪  Test
+  - &staging 🏗️  Staging
+  - &testStaging 🧪🏗️  Test Staging
+  - &cleanup 🗑️  Clean Up
+  - &deploy 🚀  Deploy
+  - &release 📦  Release
+
+
+
+# 
+# Templates.
+#-------------------------------------------------------------------------------
+.baseStage:
+  script:
+    - echo Running job '${CI_JOB_NAME}' with an empty script.
+
+
+.runOnTags:
+  rules:
+    - if: $CI_COMMIT_TAG_MESSAGE
+
+
+.runOnMergeRequests:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+
+
+# 
+# Stages.
+#-------------------------------------------------------------------------------
+.build:
+  stage: *build
+  extends: .baseStage
+
+
+.test:
+  stage: *test
+  extends: .baseStage
+
+
+.staging:
+  stage: *staging
+  extends:
+    - .baseStage
+    - .runOnMergeRequests
+
+
+.testStaging:
+  stage: *testStaging
+  extends:
+    - .baseStage
+    - .runOnMergeRequests
+
+
+.cleanup:
+  stage: *cleanup
+  extends:
+    - .baseStage
+    - .runOnMergeRequests
+
+
+.deploy:
+  stage: *deploy
+  extends:
+    - .baseStage
+    - .runOnTags
+
+
+.release:
+  stage: *release
+  extends:
+    - .baseStage
+    - .runOnTags
