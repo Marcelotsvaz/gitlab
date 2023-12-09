@@ -35,12 +35,16 @@ stages:
     stage: 🛠️ Build
     extends:
       - .baseStage
+    
+    interruptible: true
 
 
 .testStage:
     stage: 🧪 Test
     extends:
       - .baseStage
+    
+    interruptible: true
 
 
 .stagingStage:
