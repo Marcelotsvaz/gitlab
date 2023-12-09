@@ -1,0 +1,29 @@
+spec:
+    inputs:
+        provider:
+            description: Terraform module provider.
+            regex: /^[a-z-]+$/
+        name:
+            description: Terraform module name.
+            regex: /^[a-z-]+$/
+
+---
+
+GitLab Terraform Registry:
+    extends: .deployStage
+    
+    image: curlimages/curl:8.4.0@sha256:4a3396ae573c44932d06ba33f8696db4429c419da87cbdc82965ee96a37dd0af
+    
+    variables:
+        moduleName: $[[ inputs.name ]]
+        moduleProvider: $[[ inputs.provider ]]
+        moduleVersion: ${CI_COMMIT_TAG}
+        tokenHeader: 'JOB-TOKEN: ${CI_JOB_TOKEN}'
+    
+    script:
+      - tar -czvf ${moduleName}.tar.gz --exclude ./.git .
+      - curl
+            --header "${tokenHeader}"
+            --upload-file ${moduleName}.tar.gz
+            --fail-with-body
+            ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/terraform/modules/${moduleName}/${moduleProvider}/${moduleVersion}/file
