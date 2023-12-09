@@ -1,15 +1,22 @@
 spec:
     inputs:
         provider:
-            description: Terraform module provider.
-            regex: /^[a-z-]+$/
+            description: Main provider used by the module.
+            regex: /^[a-z]+$/
+        
         name:
-            description: Terraform module name.
+            description: Module name.
             regex: /^[a-z-]+$/
+        
+        path:
+            description: Path to module.
+            default: ./
 
 ---
 
 GitLab Terraform Registry:
+    # Publish Terraform module to project's Terraform registry.
+    
     extends: .deployStage
     
     image: curlimages/curl:8.4.0@sha256:4a3396ae573c44932d06ba33f8696db4429c419da87cbdc82965ee96a37dd0af
@@ -21,7 +28,7 @@ GitLab Terraform Registry:
         tokenHeader: 'JOB-TOKEN: ${CI_JOB_TOKEN}'
     
     script:
-      - tar -czvf ${moduleName}.tar.gz --exclude ./.git .
+      - tar -czvf ${moduleName}.tar.gz --exclude ./.git $[[ inputs.path ]]
       - curl
             --header "${tokenHeader}"
             --upload-file ${moduleName}.tar.gz
