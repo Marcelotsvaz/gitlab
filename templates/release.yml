@@ -1,0 +1,29 @@
+spec:
+    inputs:
+        name:
+            description: Release name.
+            default: ${CI_PROJECT_TITLE} ${CI_COMMIT_TAG}
+        
+        description:
+            description: Release description.
+            default: Release for ${CI_PROJECT_TITLE} version ${CI_COMMIT_TAG}.
+        
+        links:
+            description: List of links for the release.
+            default: []
+
+---
+
+GitLab Release:
+    # Create GitLab release as last step in the pipeline.
+    
+    extends: .releaseStage
+    
+    image: registry.gitlab.com/gitlab-org/release-cli:latest@sha256:5a71acbadc47c1971100f5246b09f88ba09e84ebe7769e425475dce85245a2bf
+    
+    release:
+        tag_name: ${CI_COMMIT_TAG}
+        name: $[[ inputs.name ]]
+        description: $[[ inputs.description ]]
+        assets:
+            links: $[[ inputs.links ]]
