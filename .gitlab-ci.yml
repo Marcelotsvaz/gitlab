@@ -1,0 +1,4 @@
+include:
+  - component: gitlab.com/marcelotsvaz/gitlab/sane-workflow@main
+  - component: gitlab.com/marcelotsvaz/gitlab/stages@main
+  - component: gitlab.com/marcelotsvaz/gitlab/release@main
