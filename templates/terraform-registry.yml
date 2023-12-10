@@ -2,11 +2,11 @@ spec:
     inputs:
         provider:
             description: Main provider used by the module.
-            regex: /^[a-z]+$/
+            # regex: /^[a-z]+$/ # TODO: Will be released in GitLab 16.7.
         
         name:
             description: Module name.
-            regex: /^[a-z-]+$/
+            # regex: /^[a-z-]+$/ # TODO: Will be released in GitLab 16.7.
         
         path:
             description: Path to module.
