@@ -1,4 +1,13 @@
 {
+	"terminal.integrated.profiles.linux": {
+		"fish": {
+			"path": "/usr/bin/fish",
+			"env": {
+				"TF_DATA_DIR": "${workspaceFolder}/.staging/terraform/",
+			},
+		},
+	},
+	
 	"files.associations":
 	{
 		"**/templates/*.yml": "yaml",
