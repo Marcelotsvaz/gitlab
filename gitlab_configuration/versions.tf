@@ -7,6 +7,11 @@ terraform {
 			version = "16.6.0"
 		}
 	}
+	
+	backend http {
+		lock_method = "POST"
+		unlock_method = "DELETE"
+	}
 }
 
 
