@@ -1,10 +1,11 @@
 # Changelog
 
 
-## [1.1.0] - 202x-xx-xx
+## [1.1.0] - 2024-01-05
 
 ### Added
 - Add changelog
+- Add changes from changelog to GitLab release description.
 
 
 ## [1.0.1] - 2023-12-10

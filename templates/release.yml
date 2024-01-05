@@ -5,8 +5,8 @@ spec:
             default: ${CI_PROJECT_TITLE} ${CI_COMMIT_TAG}
         
         description:
-            description: Release description.
-            default: Release for ${CI_PROJECT_TITLE} version ${CI_COMMIT_TAG}.
+            description: Path to file or string with release description.
+            default: /tmp/changes.md
 
 ---
 
@@ -15,7 +15,10 @@ GitLab Release:
     
     extends: .releaseStage
     
-    image: registry.gitlab.com/gitlab-org/release-cli:latest@sha256:5a71acbadc47c1971100f5246b09f88ba09e84ebe7769e425475dce85245a2bf
+    image: ${CI_REGISTRY_IMAGE}/builder:latest  # TODO: Update.
+    
+    script:
+      - parse-changelog.fish ${CI_COMMIT_TAG} > $[[ inputs.description ]]
     
     release:
         tag_name: ${CI_COMMIT_TAG}
