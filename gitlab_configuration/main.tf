@@ -41,6 +41,7 @@ locals {
 				
 				features = {
 					builds_access_level = "enabled"
+					container_registry_access_level = "enabled"
 					infrastructure_access_level = "enabled"
 					releases_access_level = "enabled"
 				}
