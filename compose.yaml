@@ -1,0 +1,8 @@
+services:
+    builder:
+        image: ${CI_REGISTRY_IMAGE}/builder:latest
+        
+        build:
+            context: .
+            x-bake: # TODO
+                output: type=image,push=true

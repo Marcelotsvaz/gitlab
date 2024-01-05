@@ -4,8 +4,9 @@
 ## [1.1.0] - 2024-01-05
 
 ### Added
-- Add changelog
+- Add changelog.
 - Add changes from changelog to GitLab release description.
+- Use custom image in CI jobs.
 
 
 ## [1.0.1] - 2023-12-10
