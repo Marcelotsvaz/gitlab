@@ -1,2 +1,2 @@
-# GitLab credentials for Terraform.
+# GitLab credentials for Terraform state.
 set gitlabAccessToken glpat-XXXXXXXXXXXXXXXXXXXX	# Local - GitLab Components

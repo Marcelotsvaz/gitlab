@@ -15,7 +15,7 @@ GitLab Release:
     
     extends: .releaseStage
     
-    image: ${CI_REGISTRY_IMAGE}/builder:latest  # TODO: Update.
+    image: ${CI_REGISTRY}/vaz-projects/gitlab/builder:latest  # TODO: Update.
     
     script:
       - parse-changelog.fish ${CI_COMMIT_TAG} > $[[ inputs.description ]]

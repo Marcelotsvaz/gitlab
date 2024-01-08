@@ -3,7 +3,7 @@ echo Setting up environment...
 
 
 # Always run on project root.
-pushd $(status dirname)/../
+pushd $(status dirname)/../ || exit
 
 
 

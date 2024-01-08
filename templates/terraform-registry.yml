@@ -19,7 +19,7 @@ GitLab Terraform Registry:
     
     extends: .deployStage
     
-    image: ${CI_REGISTRY_IMAGE}/builder:latest
+    image: ${CI_REGISTRY}/vaz-projects/gitlab/builder:latest
     
     variables:
         moduleName: $[[ inputs.name ]]
