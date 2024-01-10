@@ -33,7 +33,7 @@ stages:
 # Stages.
 #-------------------------------------------------------------------------------
 .preBuildStage:
-    stage: 🛠️ Pre Build
+    stage: 🛠️ Pre Build
     extends:
       - .baseStage
     
@@ -41,7 +41,7 @@ stages:
 
 
 .buildStage:
-    stage: 🛠️ Build
+    stage: 🛠️ Build
     extends:
       - .baseStage
     
@@ -49,7 +49,7 @@ stages:
 
 
 .testStage:
-    stage: 🧪 Test
+    stage: 🧪 Test
     extends:
       - .baseStage
     
@@ -57,35 +57,35 @@ stages:
 
 
 .stagingStage:
-    stage: 🏗️ Staging
+    stage: 🏗️ Staging
     extends:
       - .baseStage
       - .onlyOnMergeRequests
 
 
 .testStagingStage:
-    stage: 🧪🏗️ Test Staging
+    stage: 🧪🏗️ Test Staging
     extends:
       - .baseStage
       - .onlyOnMergeRequests
 
 
 .cleanupStage:
-    stage: 🗑️ Clean Up
+    stage: 🗑️ Clean Up
     extends:
       - .baseStage
       - .onlyOnMergeRequests
 
 
 .deployStage:
-    stage: 🚀 Deploy
+    stage: 🚀 Deploy
     extends:
       - .baseStage
       - .onlyOnTags
 
 
 .releaseStage:
-    stage: 📦 Release
+    stage: 📦 Release
     extends:
       - .baseStage
       - .onlyOnTags

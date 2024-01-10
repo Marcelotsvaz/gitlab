@@ -1,10 +1,11 @@
 # Changelog
 
 
-## [1.1.1] - 2024-01-xx
+## [1.1.1] - 2024-01-10
 
 ### Fixed
 - Release component: Fix path to release description.
+- Stages component: Use non-breaking space in stage name.
 
 
 ## [1.1.0] - 2024-01-08
@@ -25,6 +26,7 @@
 _Initial release._
 
 
+[1.1.1]: https://gitlab.com/vaz-projects/gitlab/-/releases/1.1.1
 [1.1.0]: https://gitlab.com/vaz-projects/gitlab/-/releases/1.1.0
 [1.0.1]: https://gitlab.com/vaz-projects/gitlab/-/releases/1.0.1
 [1.0.0]: https://gitlab.com/vaz-projects/gitlab/-/releases/1.0.0
