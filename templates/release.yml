@@ -6,7 +6,7 @@ spec:
         
         description:
             description: Path to file or string with release description.
-            default: /tmp/changes.md
+            default: __release_changes.md
 
 ---
 

@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [1.1.1] - 2024-01-xx
+
+### Fixed
+- Release component: Fix path to release description.
+
+
 ## [1.1.0] - 2024-01-08
 
 ### Added
