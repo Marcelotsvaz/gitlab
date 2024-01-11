@@ -1,7 +1,7 @@
 # Changelog
 
 
-## [1.3.0] - Unreleased
+## [1.3.0] - 2024-01-11
 
 ### Added
 - `docker-image` component: Add component for building Docker images.

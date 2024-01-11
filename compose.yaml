@@ -1,8 +1,13 @@
 services:
     builder:
-        image: ${CI_REGISTRY_IMAGE}/builder:latest
+        image: ${CI_REGISTRY_IMAGE:-vaz-projects/gitlab}/builder:latest
         
         build:
             context: .
-            x-bake: # TODO
-                output: type=image,push=true
+            tags:
+              - ${CI_REGISTRY_IMAGE:-vaz-projects/gitlab}/builder:${CI_COMMIT_REF_SLUG:-development}
+            
+            cache_from:
+              - type=local,src=.staging/cache/buildkit/
+            cache_to:
+              - type=local,mode=max,compression=zstd,dest=.staging/cache/buildkit/

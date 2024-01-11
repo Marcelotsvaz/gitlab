@@ -42,3 +42,4 @@ $[[ inputs.jobName ]]:
     
     script:
       - docker compose build
+      - docker compose push
