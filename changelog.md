@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [1.2.0] - 2024-01-10
+
+### Added
+- Release component: Add support for projects without a changelog.
+
+
 ## [1.1.1] - 2024-01-10
 
 ### Fixed

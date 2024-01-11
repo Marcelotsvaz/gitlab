@@ -4,6 +4,10 @@ spec:
             description: Release name.
             default: ${CI_PROJECT_TITLE} ${CI_COMMIT_TAG}
         
+        changelogFile:
+            description: Path to changelog file.
+            default: ''
+        
         description:
             description: Path to file or string with release description.
             default: __release_changes.md
@@ -18,7 +22,12 @@ GitLab Release:
     image: ${CI_REGISTRY}/vaz-projects/gitlab/builder:latest  # TODO: Update.
     
     script:
-      - parse-changelog.fish ${CI_COMMIT_TAG} > $[[ inputs.description ]]
+      - |-
+        if [[ -e "$[[ inputs.changelogFile ]]" ]]; then
+            parse-changelog.fish "$[[ inputs.changelogFile ]]" > "$[[ inputs.description ]]"
+        elif [[ "$[[ inputs.description ]]" == __release_changes.md ]]; then
+            echo "Release for ${CI_PROJECT_TITLE} version ${CI_COMMIT_TAG}." > "$[[ inputs.description ]]"
+        fi
     
     release:
         tag_name: ${CI_COMMIT_TAG}

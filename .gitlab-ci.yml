@@ -2,6 +2,8 @@ include:
   - component: gitlab.com/vaz-projects/gitlab/sane-workflow@${CI_COMMIT_SHA}
   - component: gitlab.com/vaz-projects/gitlab/stages@${CI_COMMIT_SHA}
   - component: gitlab.com/vaz-projects/gitlab/release@${CI_COMMIT_SHA}
+    inputs:
+        changelogFile: changelog.md
 
 
 
