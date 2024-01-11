@@ -1,0 +1,44 @@
+spec:
+    inputs:
+        jobName:
+            description: Name for the pipeline job.
+            default: Docker Image
+
+---
+
+$[[ inputs.jobName ]]:
+    # Build a Docker image and upload it to a registry.
+    
+    extends: .buildStage
+    
+    services: [ docker:24.0-dind ]
+    
+    image: docker:24.0
+    
+    tags: [ docker ]
+    
+    cache:
+        key: ${CI_COMMIT_REF_SLUG}-buildkit # Per-branch BuildKit cache.
+        paths: [ .staging/cache/buildkit/ ]
+    
+    before_script:
+        # To add git information to image.
+      - apk add git
+        
+        # Login to GitLab registry.
+      - echo ${CI_REGISTRY_PASSWORD} | docker login
+            --username ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+        
+        # buildx needs an explicit context when using env vars.
+      - docker context create gitlab
+        
+        # Set up buildx builder instance.
+      - docker buildx create gitlab
+            --driver docker-container
+            --driver-opt image=moby/buildkit:v0.12.4
+            --name buildkit
+            --use
+            --bootstrap
+    
+    script:
+      - docker compose build

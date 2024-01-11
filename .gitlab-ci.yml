@@ -1,23 +1,16 @@
 include:
   - component: gitlab.com/vaz-projects/gitlab/sane-workflow@${CI_COMMIT_SHA}
   - component: gitlab.com/vaz-projects/gitlab/stages@${CI_COMMIT_SHA}
+  - component: gitlab.com/vaz-projects/gitlab/docker-image@${CI_COMMIT_SHA}
   - component: gitlab.com/vaz-projects/gitlab/release@${CI_COMMIT_SHA}
     inputs:
         changelogFile: changelog.md
 
 
 
-CI Image:
-    extends: .preBuildStage
-    
-    services: [ docker:23.0-dind ]
-    
-    image: docker:23.0
-    
-    script:
-      - apk add git # To add git information to image.
-      - echo ${CI_REGISTRY_PASSWORD} | docker login
-            --username ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
-      - docker context create gitlab # docker buildx create needs explicit context instead of env vars.
-      - docker buildx create gitlab --driver docker-container --driver-opt image=moby/buildkit:v0.10.4 --use
-      - docker buildx bake --file compose.yaml
+Docker Image:
+    rules:
+      - changes:
+          - Dockerfile
+          - scripts/parse-changelog.fish
+          - compose.yaml
