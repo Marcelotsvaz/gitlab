@@ -14,6 +14,31 @@ include:
   - component: gitlab.com/vaz-projects/gitlab/stages@1.0.0
 ```
 
+### Conventions
+All components in this repository use the following conventions.
+
+1. Include the `stages` component. Most other components depend on it.
+    ``` yaml
+    include:
+      - component: gitlab.com/vaz-projects/gitlab/stages@1.0.0
+    ```
+
+1. Don't use `stage` directly. Use the provided base jobs instead. They properly define the rules for each stage (and have ✨pretty✨ names).
+    ``` yaml
+    job:
+        extends: .buildStage
+    ```
+
+1. When using `extends` and `rules`: Include a reference to the base job's rules. Otherwise, all other rules would be overwritten.
+    ``` yaml
+    job:
+        extends: .baseJob
+        
+        rules:
+          - $VAR == 'VALUE'
+          - !reference [ .baseJob, rules ]
+    ```
+
 
 ### Deployment Styles
 The `stages` component support two different deployment styles:

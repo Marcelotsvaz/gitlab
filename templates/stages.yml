@@ -10,6 +10,51 @@ spec:
 
 ---
 
+# 
+# Workflow
+#-------------------------------------------------------------------------------
+workflow:
+    name: ${pipelineName}
+    
+    rules:
+        # Fix duplicated pipelines on merge requests.
+      - if: $CI_PIPELINE_SOURCE == 'push' && $CI_OPEN_MERGE_REQUESTS
+        when: never
+        
+        # Branches.
+      - if: $CI_COMMIT_BRANCH
+        variables:
+            CI_PIPELINE_TYPE: branch
+            pipelineName: Pipeline for Branch '${CI_COMMIT_BRANCH}'
+        
+        # Merge requests.
+      - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+        variables:
+            CI_PIPELINE_TYPE: merge_request
+            pipelineName: Pipeline for Merge Request '${CI_MERGE_REQUEST_TITLE}'
+        
+        # Tags.
+      - if: $CI_COMMIT_TAG_MESSAGE
+        variables:
+            CI_PIPELINE_TYPE: tag
+            pipelineName: Release Pipeline for Tag '${CI_COMMIT_TAG}'
+        
+        # Schedules.
+      - if: $CI_PIPELINE_SOURCE == 'schedule'
+        variables:
+            CI_PIPELINE_TYPE: scheduled
+            pipelineName: Scheduled Pipeline for Branch '${CI_COMMIT_BRANCH}'
+        
+        # Unknown.
+      - variables:
+            CI_PIPELINE_TYPE: unknown
+            pipelineName: Unknown Pipeline From '${CI_PIPELINE_SOURCE}'
+
+
+
+# 
+# Stages
+#-------------------------------------------------------------------------------
 stages:
   - !reference [ .preBuildStage,       stage ]
   - !reference [ .buildStage,          stage ]
@@ -23,14 +68,14 @@ stages:
   - !reference [ .releaseStage,        stage ]
 
 
+
+# 
+# Templates
+#-------------------------------------------------------------------------------
 variables:
     CI_DEPLOY_ON: $[[ inputs.deployOn ]]
 
 
-
-# 
-# Templates.
-#-------------------------------------------------------------------------------
 .baseStage:
     script:
       - echo "Running job '${CI_JOB_NAME}' with an empty script."
@@ -58,7 +103,7 @@ variables:
 
 
 # 
-# Stages.
+# Stages
 #-------------------------------------------------------------------------------
 .preBuildStage:
     stage: 🛠️ Pre-Build

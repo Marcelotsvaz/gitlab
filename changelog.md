@@ -5,7 +5,10 @@
 
 ### Added
 - `stages` component: Add support for continuous delivery/deployment pipelines.
-- `stages` component: Add plan stages.
+- `stages` component: Add prepare stages.
+
+### Removed
+- `sane-workflow` component: `sane-workflow` is now part of `stages`.
 
 
 ## [1.3.0] - 2024-01-11
