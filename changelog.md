@@ -1,14 +1,21 @@
 # Changelog
 
 
-## [2.0.0] - 2024-01-00
+## [2.0.0] - 2024-01-21
 
 ### Added
 - `stages` component: Add support for continuous delivery/deployment pipelines.
 - `stages` component: Add prepare stages.
+- `stages` component: Merged `sane-workflow` into `stages`.
+
+### Changed
+- `stages` component: Don't run pipelines for lightweight tags.
 
 ### Removed
-- `sane-workflow` component: `sane-workflow` is now part of `stages`.
+- `sane-workflow` component: Merged `sane-workflow` into `stages`.
+
+### Fixed
+- `stages` component: Fix scheduled pipelines being run as branch pipelines.
 
 
 ## [1.3.0] - 2024-01-11
