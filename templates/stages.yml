@@ -45,7 +45,7 @@ variables:
             $CI_DEPLOY_ON == 'defaultBranch'
             
       - if: $CI_PIPELINE_TYPE == 'tag' &&
-            $CI_DEPLOY_ON = 'tag'
+            $CI_DEPLOY_ON == 'tag'
     
     deployToProduction:
       - if: $CI_PIPELINE_TYPE == 'branch' &&
@@ -53,7 +53,7 @@ variables:
             $CI_DEPLOY_ON == 'defaultBranch'
             
       - if: $CI_PIPELINE_TYPE == 'tag' &&
-            $CI_DEPLOY_ON = 'tag'
+            $CI_DEPLOY_ON == 'tag'
 
 
 
