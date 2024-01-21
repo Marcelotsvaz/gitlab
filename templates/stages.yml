@@ -11,16 +11,16 @@ spec:
 ---
 
 stages:
-  - !reference [ .preBuildStage,        stage ]
-  - !reference [ .buildStage,           stage ]
-  - !reference [ .testStage,            stage ]
-  - !reference [ .stagingPlanStage,     stage ]
-  - !reference [ .stagingDeployStage,   stage ]
-  - !reference [ .stagingTestStage,     stage ]
-  - !reference [ .stagingCleanupStage,  stage ]
-  - !reference [ .planStage,            stage ]
-  - !reference [ .deployStage,          stage ]
-  - !reference [ .releaseStage,         stage ]
+  - !reference [ .preBuildStage,       stage ]
+  - !reference [ .buildStage,          stage ]
+  - !reference [ .testStage,           stage ]
+  - !reference [ .stagingPrepareStage, stage ]
+  - !reference [ .stagingDeployStage,  stage ]
+  - !reference [ .stagingTestStage,    stage ]
+  - !reference [ .stagingCleanupStage, stage ]
+  - !reference [ .prepareStage,        stage ]
+  - !reference [ .deployStage,         stage ]
+  - !reference [ .releaseStage,        stage ]
 
 
 variables:
@@ -84,8 +84,8 @@ variables:
     interruptible: true
 
 
-.stagingPlanStage:
-    stage: 🚧 📋 Staging Plan
+.stagingPrepareStage:
+    stage: 🚧 📋 Prepare (Staging)
     
     extends: .baseStage
     
@@ -94,7 +94,7 @@ variables:
 
 
 .stagingDeployStage:
-    stage: 🚧 🚀 Staging Deploy
+    stage: 🚧 🚀 Deploy (Staging)
     
     extends: .baseStage
     
@@ -103,7 +103,7 @@ variables:
 
 
 .stagingTestStage:
-    stage: 🚧 🧪 Staging Test
+    stage: 🚧 🧪 Test (Staging)
     
     extends: .baseStage
     
@@ -112,7 +112,7 @@ variables:
 
 
 .stagingCleanupStage:
-    stage: 🚧 🗑️ Staging Clean Up
+    stage: 🚧 🗑️ Clean Up (Staging)
     
     extends: .baseStage
     
@@ -120,8 +120,8 @@ variables:
       - !reference [ .rules, deployToStaging ]
 
 
-.planStage:
-    stage: 📋 Plan
+.prepareStage:
+    stage: 📋 Prepare
     
     extends: .baseStage
     
