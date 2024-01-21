@@ -1,8 +1,8 @@
 SAST - Semgrep:
+    extends: .testStage
+    
     inherit:
         default: false
-    
-    stage: !reference [ .testStage, stage ]
     
     image: ${CI_TEMPLATE_REGISTRY_HOST}/security-products/semgrep:4
     
@@ -17,18 +17,3 @@ SAST - Semgrep:
             sast: gl-sast-report.json
     
     allow_failure: true
-    
-    rules:
-      - exists:
-          - '**/*.c'
-          - '**/*.cs'
-          - '**/*.go'
-          - '**/*.html'
-          - '**/*.java'
-          - '**/*.js'
-          - '**/*.jsx'
-          - '**/*.py'
-          - '**/*.sc'
-          - '**/*.scala'
-          - '**/*.ts'
-          - '**/*.tsx'
