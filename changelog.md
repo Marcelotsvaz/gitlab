@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [2.0.0] - 2024-01-00
+
+### Added
+- `stages` component: Add plan stages.
+
+
 ## [1.3.0] - 2024-01-11
 
 ### Added
@@ -38,6 +44,7 @@
 _Initial release._
 
 
+[2.0.0]: https://gitlab.com/vaz-projects/gitlab/-/releases/2.0.0
 [1.3.0]: https://gitlab.com/vaz-projects/gitlab/-/releases/1.3.0
 [1.2.0]: https://gitlab.com/vaz-projects/gitlab/-/releases/1.2.0
 [1.1.1]: https://gitlab.com/vaz-projects/gitlab/-/releases/1.1.1

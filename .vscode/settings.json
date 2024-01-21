@@ -11,12 +11,15 @@
 		"args": [ "-C", "source '${workspaceFolder}/scripts/setupEnv.fish'" ],
 	},
 	
-	"files.associations":
-	{
+	"files.associations": {
 		"**/templates/*.yml": "yaml",
 	},
 	
 	"yaml.schemas": {
 		"https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json": "/templates/*.yml",
+	},
+	
+	"editor.unicodeHighlight.allowedCharacters": {
+		" ": true
 	},
 }

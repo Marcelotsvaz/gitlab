@@ -1,12 +1,14 @@
 stages:
-  - !reference [ .preBuildStage, stage ]
-  - !reference [ .buildStage, stage ]
-  - !reference [ .testStage, stage ]
-  - !reference [ .stagingStage, stage ]
-  - !reference [ .testStagingStage, stage ]
-  - !reference [ .cleanupStage, stage ]
-  - !reference [ .deployStage, stage ]
-  - !reference [ .releaseStage, stage ]
+  - !reference [ .preBuildStage,        stage ]
+  - !reference [ .buildStage,           stage ]
+  - !reference [ .testStage,            stage ]
+  - !reference [ .stagingPlanStage,     stage ]
+  - !reference [ .stagingDeployStage,   stage ]
+  - !reference [ .stagingTestStage,     stage ]
+  - !reference [ .stagingCleanupStage,  stage ]
+  - !reference [ .planStage,            stage ]
+  - !reference [ .deployStage,          stage ]
+  - !reference [ .releaseStage,         stage ]
 
 
 
@@ -31,7 +33,7 @@ stages:
 # Stages.
 #-------------------------------------------------------------------------------
 .preBuildStage:
-    stage: 🛠️ Pre Build
+    stage: 🛠️ Pre-Build
     
     extends: .baseStage
     
@@ -39,7 +41,7 @@ stages:
 
 
 .buildStage:
-    stage: 🛠️ Build
+    stage: 🏗️ Build
     
     extends: .baseStage
     
@@ -54,8 +56,8 @@ stages:
     interruptible: true
 
 
-.stagingStage:
-    stage: 🏗️ Staging
+.stagingPlanStage:
+    stage: 🚧 📋 Staging Plan
     
     extends: .baseStage
     
@@ -63,8 +65,8 @@ stages:
       - !reference [ .rules, onMergeRequests ]
 
 
-.testStagingStage:
-    stage: 🧪🏗️ Test Staging
+.stagingDeployStage:
+    stage: 🚧 🚀 Staging Deploy
     
     extends: .baseStage
     
@@ -72,13 +74,31 @@ stages:
       - !reference [ .rules, onMergeRequests ]
 
 
-.cleanupStage:
-    stage: 🗑️ Clean Up
+.stagingTestStage:
+    stage: 🚧 🧪 Staging Test
     
     extends: .baseStage
     
     rules:
       - !reference [ .rules, onMergeRequests ]
+
+
+.stagingCleanupStage:
+    stage: 🚧 🗑️ Staging Clean Up
+    
+    extends: .baseStage
+    
+    rules:
+      - !reference [ .rules, onMergeRequests ]
+
+
+.planStage:
+    stage: 📋 Plan
+    
+    extends: .baseStage
+    
+    rules:
+      - !reference [ .rules, onTags ]
 
 
 .deployStage:

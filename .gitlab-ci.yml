@@ -11,6 +11,6 @@ include:
 Docker Image:
     rules:
       - changes:
-          - Dockerfile
+          - dockerfile
           - scripts/parse-changelog.fish
           - compose.yaml
