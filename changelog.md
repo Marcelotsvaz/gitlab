@@ -4,6 +4,7 @@
 ## [2.0.0] - 2024-01-00
 
 ### Added
+- `stages` component: Add support for continuous delivery/deployment pipelines.
 - `stages` component: Add plan stages.
 
 

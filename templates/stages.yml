@@ -1,3 +1,15 @@
+spec:
+    inputs:
+        deployOn:
+            description: Control if deployment jobs should run for tag pipelines or for default branch pipelines.
+            options:
+              - defaultBranch
+              - tag
+              - none
+            default: none
+
+---
+
 stages:
   - !reference [ .preBuildStage,        stage ]
   - !reference [ .buildStage,           stage ]
@@ -11,6 +23,10 @@ stages:
   - !reference [ .releaseStage,         stage ]
 
 
+variables:
+    CI_DEPLOY_ON: $[[ inputs.deployOn ]]
+
+
 
 # 
 # Templates.
@@ -21,11 +37,23 @@ stages:
 
 
 .rules:
-    onMergeRequests:
-        if: $CI_PIPELINE_TYPE == 'merge_request'
+    deployToStaging:
+      - if: $CI_PIPELINE_TYPE == 'merge_request'
+            
+      - if: $CI_PIPELINE_TYPE == 'branch' &&
+            $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH &&
+            $CI_DEPLOY_ON == 'defaultBranch'
+            
+      - if: $CI_PIPELINE_TYPE == 'tag' &&
+            $CI_DEPLOY_ON = 'tag'
     
-    onTags:
-        if: $CI_PIPELINE_TYPE == 'tag'
+    deployToProduction:
+      - if: $CI_PIPELINE_TYPE == 'branch' &&
+            $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH &&
+            $CI_DEPLOY_ON == 'defaultBranch'
+            
+      - if: $CI_PIPELINE_TYPE == 'tag' &&
+            $CI_DEPLOY_ON = 'tag'
 
 
 
@@ -62,7 +90,7 @@ stages:
     extends: .baseStage
     
     rules:
-      - !reference [ .rules, onMergeRequests ]
+      - !reference [ .rules, deployToStaging ]
 
 
 .stagingDeployStage:
@@ -71,7 +99,7 @@ stages:
     extends: .baseStage
     
     rules:
-      - !reference [ .rules, onMergeRequests ]
+      - !reference [ .rules, deployToStaging ]
 
 
 .stagingTestStage:
@@ -80,7 +108,7 @@ stages:
     extends: .baseStage
     
     rules:
-      - !reference [ .rules, onMergeRequests ]
+      - !reference [ .rules, deployToStaging ]
 
 
 .stagingCleanupStage:
@@ -89,7 +117,7 @@ stages:
     extends: .baseStage
     
     rules:
-      - !reference [ .rules, onMergeRequests ]
+      - !reference [ .rules, deployToStaging ]
 
 
 .planStage:
@@ -98,7 +126,7 @@ stages:
     extends: .baseStage
     
     rules:
-      - !reference [ .rules, onTags ]
+      - !reference [ .rules, deployToProduction ]
 
 
 .deployStage:
@@ -107,7 +135,7 @@ stages:
     extends: .baseStage
     
     rules:
-      - !reference [ .rules, onTags ]
+      - !reference [ .rules, deployToProduction ]
 
 
 .releaseStage:
@@ -116,4 +144,4 @@ stages:
     extends: .baseStage
     
     rules:
-      - !reference [ .rules, onTags ]
+      - !reference [ .rules, deployToProduction ]

@@ -11,7 +11,30 @@ Reusable [components](https://docs.gitlab.com/ee/ci/components/) for GitLab CI/C
 How to use:
 ```yaml
 include:
-  - component: gitlab.com/marcelotsvaz/gitlab/stages@main
+  - component: gitlab.com/vaz-projects/gitlab/stages@1.0.0
+```
+
+
+### Deployment Styles
+The `stages` component support two different deployment styles:
+
+1. Deploy on tag pipelines. Default branch is used pro development. Good for versioned releases.
+    - `feature-branch/without-mr`: Build & Test
+    - `feature-branch/with-mr`: Build & Test -> Deploy to review app
+    - `default-branch`: Build & Test
+    - `tag`: Build & Test -> Deploy to staging -> Deploy to production
+    
+1. Deploy on default branch pipelines. Default branch is used for staging and production. Good for continuous delivery/deployment.
+    - `feature-branch/without-mr`: Build & Test
+    - `feature-branch/with-mr`: Build & Test -> Deploy to review app
+    - `default-branch`: Build & Test -> Deploy to staging -> Deploy to production
+    - `tag`: Build & Test
+
+``` yaml
+include:
+    - component: gitlab.com/vaz-projects/gitlab/stages@1.0.0
+      inputs:
+        deployOn: defaultBranch
 ```
 
 
