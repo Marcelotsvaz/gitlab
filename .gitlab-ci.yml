@@ -1,5 +1,4 @@
 include:
-  - component: ${CI_SERVER_HOST}/${CI_PROJECT_PATH}/sane-workflow@${CI_COMMIT_SHA}
   - component: ${CI_SERVER_HOST}/${CI_PROJECT_PATH}/stages@${CI_COMMIT_SHA}
   - component: ${CI_SERVER_HOST}/${CI_PROJECT_PATH}/docker-image@${CI_COMMIT_SHA}
   - component: ${CI_SERVER_HOST}/${CI_PROJECT_PATH}/release@${CI_COMMIT_SHA}
