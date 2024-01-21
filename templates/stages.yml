@@ -18,14 +18,12 @@ stages:
       - echo "Running job '${CI_JOB_NAME}' with an empty script."
 
 
-.onlyOnMergeRequests:
-    rules:
-      - if: $CI_PIPELINE_TYPE == 'merge_request'
-
-
-.onlyOnTags:
-    rules:
-      - if: $CI_PIPELINE_TYPE == 'tag'
+.rules:
+    onMergeRequests:
+        if: $CI_PIPELINE_TYPE == 'merge_request'
+    
+    onTags:
+        if: $CI_PIPELINE_TYPE == 'tag'
 
 
 
@@ -34,58 +32,68 @@ stages:
 #-------------------------------------------------------------------------------
 .preBuildStage:
     stage: 🛠️ Pre Build
-    extends:
-      - .baseStage
+    
+    extends: .baseStage
     
     interruptible: true
 
 
 .buildStage:
     stage: 🛠️ Build
-    extends:
-      - .baseStage
+    
+    extends: .baseStage
     
     interruptible: true
 
 
 .testStage:
     stage: 🧪 Test
-    extends:
-      - .baseStage
+    
+    extends: .baseStage
     
     interruptible: true
 
 
 .stagingStage:
     stage: 🏗️ Staging
-    extends:
-      - .baseStage
-      - .onlyOnMergeRequests
+    
+    extends: .baseStage
+    
+    rules:
+      - !reference [ .rules, onMergeRequests ]
 
 
 .testStagingStage:
     stage: 🧪🏗️ Test Staging
-    extends:
-      - .baseStage
-      - .onlyOnMergeRequests
+    
+    extends: .baseStage
+    
+    rules:
+      - !reference [ .rules, onMergeRequests ]
 
 
 .cleanupStage:
     stage: 🗑️ Clean Up
-    extends:
-      - .baseStage
-      - .onlyOnMergeRequests
+    
+    extends: .baseStage
+    
+    rules:
+      - !reference [ .rules, onMergeRequests ]
 
 
 .deployStage:
     stage: 🚀 Deploy
-    extends:
-      - .baseStage
-      - .onlyOnTags
+    
+    extends: .baseStage
+    
+    rules:
+      - !reference [ .rules, onTags ]
 
 
 .releaseStage:
     stage: 📦 Release
-    extends:
-      - .baseStage
-      - .onlyOnTags
+    
+    extends: .baseStage
+    
+    rules:
+      - !reference [ .rules, onTags ]

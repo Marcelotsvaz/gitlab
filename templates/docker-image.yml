@@ -12,7 +12,6 @@ $[[ inputs.jobName ]]:
     extends: .buildStage
     
     services: [ docker:24.0-dind ]
-    
     image: docker:24.0
     
     tags: [ docker ]
