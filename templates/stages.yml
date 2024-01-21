@@ -21,6 +21,12 @@ workflow:
       - if: $CI_PIPELINE_SOURCE == 'push' && $CI_OPEN_MERGE_REQUESTS
         when: never
         
+        # Schedules.
+      - if: $CI_PIPELINE_SOURCE == 'schedule'
+        variables:
+            CI_PIPELINE_TYPE: scheduled
+            pipelineName: Scheduled Pipeline for Branch '${CI_COMMIT_BRANCH}'
+        
         # Branches.
       - if: $CI_COMMIT_BRANCH
         variables:
@@ -38,12 +44,6 @@ workflow:
         variables:
             CI_PIPELINE_TYPE: tag
             pipelineName: Release Pipeline for Tag '${CI_COMMIT_TAG}'
-        
-        # Schedules.
-      - if: $CI_PIPELINE_SOURCE == 'schedule'
-        variables:
-            CI_PIPELINE_TYPE: scheduled
-            pipelineName: Scheduled Pipeline for Branch '${CI_COMMIT_BRANCH}'
         
         # Unknown.
       - variables:
