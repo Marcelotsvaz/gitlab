@@ -12,32 +12,7 @@ locals {
 			topics = []
 			visibility_level = "public"
 			
-			features = {
-				issues_enabled = true
-				
-				repository_access_level = "enabled"
-				merge_requests_access_level = "enabled"
-				forking_access_level = "enabled"
-				lfs_enabled = true
-				
-				builds_access_level = "disabled"
-				container_registry_access_level = "disabled"
-				analytics_access_level = "enabled"
-				security_and_compliance_access_level = "disabled"
-				wiki_access_level = "disabled"
-				snippets_access_level = "disabled"
-				packages_enabled = false
-				model_experiments_access_level = "disabled"
-				model_registry_access_level = "disabled"
-				pages_access_level = "disabled"
-				monitor_access_level = "disabled"
-				environments_access_level = "disabled"
-				feature_flags_access_level = "disabled"
-				infrastructure_access_level = "disabled"
-				releases_access_level = "disabled"
-				
-				service_desk_enabled = false
-			}
+			features = {}
 		}
 		
 		
@@ -53,6 +28,67 @@ locals {
 					infrastructure_access_level = "enabled"
 					releases_access_level = "enabled"
 				}
+			}
+			
+			vaz-projects = {
+				name = "VAZ Projects"
+				description = "VAZ Projects website."
+				topics = [
+					"aws",
+					"terraform",
+					"docker",
+					"django",
+				]
+				
+				features = {
+					builds_access_level = "enabled"
+					container_registry_access_level = "enabled"
+					environments_access_level = "enabled"
+					infrastructure_access_level = "enabled"
+					monitor_access_level = "enabled"
+					snippets_access_level = "enabled"
+				}
+			}
+			
+			python-project-template = {
+				name = "Python Project Template"
+				description = "Template to quickly bootstrap Python projects."
+				topics = [
+					"python",
+					"template-project",
+				]
+				
+				features = {
+					builds_access_level = "enabled"
+					environments_access_level = "enabled"
+					packages_enabled = true
+					pages_access_level = "enabled"
+					releases_access_level = "enabled"
+				}
+			}
+			
+			nbr-5410-calculator = {
+				name = "NBR 5410 Calculator"
+				description = "Calculator for electrical installations following the NBR 5410 standard."
+				topics = [
+					"Qt",
+					"python",
+				]
+				
+				features = {
+					builds_access_level = "enabled"
+					releases_access_level = "enabled"
+				}
+			}
+			
+			arch-linux-install-script = {
+				name = "Arch Linux Install Script"
+				description = "Arch Linux install and configuration script."
+				topics = [
+					"archlinux",
+					"linux",
+					"python",
+				]
 			}
 		}
 		
@@ -70,7 +106,7 @@ locals {
 			}
 			
 			gitlab-project = {
-				name = "GitLab Project"
+				name = "GitLab Project Terraform Module"
 			}
 			
 			vpc = {
@@ -78,11 +114,11 @@ locals {
 			}
 			
 			user-data = {
-				name = "Terraform User Data Module"
+				name = "EC2 User Data Terraform Module"
 			}
 			
 			lambda = {
-				name = "Terraform AWS Lambda Module"
+				name = "AWS Lambda Terraform Module"
 			}
 			
 			eks = {
