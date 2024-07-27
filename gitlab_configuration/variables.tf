@@ -105,16 +105,16 @@ locals {
 				}
 			}
 			
-			gitlab-project = {
-				name = "GitLab Project Terraform Module"
-			}
-			
 			vpc = {
 				name = "AWS VPC Terraform Module"
 			}
 			
+			instance = {
+				name = "AWS EC2 Instance Terraform Module"
+			}
+			
 			user-data = {
-				name = "EC2 User Data Terraform Module"
+				name = "AWS EC2 User Data Terraform Module"
 			}
 			
 			lambda = {
@@ -123,6 +123,10 @@ locals {
 			
 			eks = {
 				name = "AWS EKS Terraform Module"
+			}
+			
+			gitlab-project = {
+				name = "GitLab Project Terraform Module"
 			}
 		}
 	}
