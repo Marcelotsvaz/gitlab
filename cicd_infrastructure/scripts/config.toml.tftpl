@@ -1,0 +1,22 @@
+concurrent = 1
+check_interval = 1
+shutdown_timeout = 60
+
+
+[session_server]
+	session_timeout = 1800
+
+
+[[runners]]
+	name = '${runner_name}'
+	url = '${gitlab_url}'
+	id = ${runner_id}
+	token = '${runner_token}'
+	executor = 'docker'
+	
+	[runners.feature_flags]
+		FF_USE_IMPROVED_URL_MASKING = true
+		FF_SCRIPT_SECTIONS = true
+	
+	[runners.docker]
+		image = 'alpine:latest'
