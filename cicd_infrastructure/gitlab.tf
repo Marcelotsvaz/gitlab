@@ -6,4 +6,9 @@ data gitlab_group main {
 resource gitlab_user_runner main {
 	runner_type = "group_type"
 	group_id = data.gitlab_group.main.id
+	
+	description = "Main Runner"
+	access_level = "ref_protected"
+	tag_list = []
+	maximum_timeout = 3600
 }
