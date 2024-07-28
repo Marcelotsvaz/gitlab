@@ -1,0 +1,13 @@
+[Unit]
+Description = GitLab Runner
+After = docker.service network.target
+Requires = docker.service network.target
+
+[Service]
+ExecStart = /usr/bin/gitlab-runner run --user gitlab-runner
+KillSignal = SIGQUIT
+FinalKillSignal = SIGTERM
+TimeoutStopSec = 5min
+
+[Install]
+WantedBy = multi-user.target

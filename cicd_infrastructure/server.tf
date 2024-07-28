@@ -34,6 +34,7 @@ module user_data {
 	input_dir = "${path.root}/scripts/"
 	
 	files = [
+		"gitlab-runner.service",
 		"perInstance.sh",
 	]
 	templates = [
