@@ -95,7 +95,7 @@ locals {
 		
 		"vaz-projects/terraform" = {
 			_defaults = {
-				description = "Terraform Module."
+				description = "Terraform module."
 				topics = [ "terraform" ]
 				
 				features = {
@@ -107,6 +107,10 @@ locals {
 			
 			vpc = {
 				name = "AWS VPC Terraform Module"
+			}
+			
+			security-group = {
+				name = "AWS Security Group Terraform Module"
 			}
 			
 			instance = {
