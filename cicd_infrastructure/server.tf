@@ -6,4 +6,5 @@ module server {
 	prefix = "${local.project_prefix}-cicd_server"
 	
 	subnet_ids = module.vpc.networks.public[*].id
+	security_group_ids = [ module.public_security_group.id ]
 }
