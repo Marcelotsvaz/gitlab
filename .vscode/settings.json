@@ -22,4 +22,9 @@
 	"editor.unicodeHighlight.allowedCharacters": {
 		" ": true
 	},
+	
+	"cSpell.words": [
+		"cicd",
+		"gitlabhq",
+	],
 }
