@@ -16,4 +16,5 @@ locals {
 	project_name = "CI/CD Infrastructure"
 	project_identifier = "cicd_infrastructure"
 	project_prefix = local.project_identifier
+	project_prefix_alternate = replace( local.project_prefix, "_", "-" )
 }

@@ -20,3 +20,11 @@ shutdown_timeout = 60
 	
 	[runners.docker]
 		image = 'alpine:latest'
+	
+	[runners.cache]
+		Type = 's3'
+		Shared = true
+		
+		[runners.cache.s3]
+			BucketName = '${runner_cache_bucket_name}'
+			BucketLocation = '${runner_cache_bucket_region}'

@@ -7,6 +7,7 @@ module server {
 	
 	ami_id = data.aws_ami.main.id
 	user_data_base64 = module.user_data.content_base64
+	role_policies = [ data.aws_iam_policy_document.server ]
 	
 	subnet_ids = module.vpc.networks.public[*].id
 	security_group_ids = [ module.public_security_group.id ]
@@ -43,9 +44,23 @@ module user_data {
 		hostname = "cicd"
 	}
 	context = {
-		runner_name = "testrunner"
+		runner_name = gitlab_user_runner.main.description
 		gitlab_url = var.gitlab_url
 		runner_id = gitlab_user_runner.main.id
 		runner_token = gitlab_user_runner.main.token
+		runner_cache_bucket_name = aws_s3_bucket.runner_cache.id
+		runner_cache_bucket_region = aws_s3_bucket.runner_cache.region
+	}
+}
+
+
+data aws_iam_policy_document server {
+	statement {
+		sid = "putRunnerCache"
+		actions = [
+			"s3:GetObject",
+			"s3:PutObject",
+		]
+		resources = [ "${aws_s3_bucket.runner_cache.arn}/*" ]
 	}
 }
