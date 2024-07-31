@@ -117,6 +117,10 @@ locals {
 				name = "AWS EC2 Instance Terraform Module"
 			}
 			
+			auto-scaling-group = {
+				name = "AWS EC2 Auto Scaling Group Terraform Module"
+			}
+			
 			user-data = {
 				name = "AWS EC2 User Data Terraform Module"
 			}
