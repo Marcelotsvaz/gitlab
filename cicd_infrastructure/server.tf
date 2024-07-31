@@ -57,7 +57,7 @@ module server_user_data {
 		runner_max_instances = local.runner.max_instances
 		runner_instance_concurrency = local.runner.instance_concurrency
 		runner_instance_use_count = local.runner.instance_use_count
-		runner_autoscaling_group_name = aws_autoscaling_group.worker.name
+		runner_auto_scaling_group_name = module.worker.name
 		runner_worker_user = local.worker.user
 		
 		runner_cache_bucket_name = aws_s3_bucket.runner_cache.id
@@ -98,7 +98,7 @@ data aws_iam_policy_document runner_autoscaler {
 			"autoscaling:SetDesiredCapacity",
 			"autoscaling:TerminateInstanceInAutoScalingGroup",
 		]
-		resources = [ aws_autoscaling_group.worker.arn ]
+		resources = [ module.worker.arn ]
 	}
 	
 	statement {
@@ -107,7 +107,7 @@ data aws_iam_policy_document runner_autoscaler {
 		condition {
 			variable = "aws:ResourceTag/aws:autoscaling:groupName"
 			test = "StringEquals"
-			values = [ aws_autoscaling_group.worker.name ]
+			values = [ module.worker.name ]
 		}
 		condition {
 			variable = "ec2:osuser"
