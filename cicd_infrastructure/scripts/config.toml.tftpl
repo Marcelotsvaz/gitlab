@@ -1,4 +1,4 @@
-concurrent = 1
+concurrent = ${runner_max_instances * runner_instance_concurrency}
 check_interval = 1
 shutdown_timeout = 60
 
@@ -12,7 +12,7 @@ shutdown_timeout = 60
 	url = '${gitlab_url}'
 	id = ${runner_id}
 	token = '${runner_token}'
-	executor = 'docker'
+	executor = 'docker-autoscaler'
 	
 	[runners.feature_flags]
 		FF_USE_IMPROVED_URL_MASKING = true
@@ -21,10 +21,18 @@ shutdown_timeout = 60
 	[runners.docker]
 		image = 'alpine:latest'
 	
-	[runners.cache]
-		Type = 's3'
-		Shared = true
+	[runners.autoscaler]
+		plugin = 'aws:1.0.0'
+		max_instances = ${runner_max_instances}
+		capacity_per_instance = ${runner_instance_concurrency}
+		max_use_count = ${runner_instance_use_count}
+		delete_instances_on_shutdown = true
 		
-		[runners.cache.s3]
-			BucketName = '${runner_cache_bucket_name}'
-			BucketLocation = '${runner_cache_bucket_region}'
+		plugin_config.name = '${runner_autoscaling_group_name}'
+		connector_config.username = '${runner_worker_user}'
+	
+	[runners.cache]
+		Shared = true
+		Type = 's3'
+		s3.BucketName = '${runner_cache_bucket_name}'
+		s3.BucketLocation = '${runner_cache_bucket_region}'

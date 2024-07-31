@@ -24,8 +24,12 @@
 	},
 	
 	"cSpell.words": [
+		"autoscaler",
 		"cicd",
 		"gitlabhq",
+		"nologin",
+		"osuser",
 		"tftpl",
+		"xvda",
 	],
 }

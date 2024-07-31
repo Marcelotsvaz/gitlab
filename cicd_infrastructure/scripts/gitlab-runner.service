@@ -1,10 +1,12 @@
 [Unit]
 Description = GitLab Runner
-After = docker.service network.target
 Requires = docker.service network.target
+After = docker.service network.target
 
 [Service]
+EnvironmentFile = -/etc/environment
 ExecStart = /usr/bin/gitlab-runner run --user gitlab-runner
+
 KillSignal = SIGQUIT
 FinalKillSignal = SIGTERM
 TimeoutStopSec = 5min
