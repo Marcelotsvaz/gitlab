@@ -1,9 +1,13 @@
 module server {
 	source = "gitlab.com/vaz-projects/instance/aws"
-	version = "0.3.0"
+	version = "0.4.0"
 	
 	name = "CI/CD Server"
 	prefix = "${local.project_prefix}-cicd_server"
+	
+	min_vcpu_count = 2
+	min_memory_gib = 1
+	max_instance_price = 0.025
 	
 	ami_id = data.aws_ami.main.id
 	user_data_base64 = module.server_user_data.content_base64

@@ -1,9 +1,14 @@
 module worker {
 	source = "gitlab.com/vaz-projects/auto-scaling-group/aws"
-	version = "0.3.0"
+	version = "0.4.1"
 	
 	name = "CI/CD Worker"
 	prefix = "${local.project_prefix}-cicd_worker"
+	
+	min_vcpu_count = 2
+	min_memory_gib = 4
+	burstable = "excluded"
+	max_instance_price = 0.10
 	
 	ami_id = data.aws_ami.main.id
 	user_data_base64 = module.worker_user_data.content_base64
