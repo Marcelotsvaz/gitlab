@@ -13,6 +13,7 @@ locals {
 			visibility_level = "public"
 			
 			features = {}
+			cicd = {}
 		}
 		
 		
@@ -20,7 +21,10 @@ locals {
 			gitlab = {
 				name = "GitLab Components"
 				description = "Different types of reusable components used across all my projects on GitLab."
-				topics = [ "gitlab" ]
+				avatar = "avatars/gitlab.png"
+				topics = [
+					"gitlab",
+				]
 				
 				features = {
 					builds_access_level = "enabled"
@@ -53,6 +57,7 @@ locals {
 			python-project-template = {
 				name = "Python Project Template"
 				description = "Template to quickly bootstrap Python projects."
+				avatar = "avatars/python.png"
 				topics = [
 					"python",
 					"template-project",
@@ -84,6 +89,7 @@ locals {
 			arch-linux-install-script = {
 				name = "Arch Linux Install Script"
 				description = "Arch Linux install and configuration script."
+				avatar = "avatars/arch_linux.png"
 				topics = [
 					"archlinux",
 					"linux",
@@ -96,7 +102,9 @@ locals {
 		"vaz-projects/terraform" = {
 			_defaults = {
 				description = "Terraform module."
-				topics = [ "terraform" ]
+				topics = [
+					"terraform",
+				]
 				
 				features = {
 					builds_access_level = "enabled"
@@ -107,34 +115,42 @@ locals {
 			
 			vpc = {
 				name = "AWS VPC Terraform Module"
+				avatar = "avatars/vpc.png"
 			}
 			
 			security-group = {
 				name = "AWS Security Group Terraform Module"
+				avatar = "avatars/vpc.png"
 			}
 			
 			instance = {
 				name = "AWS EC2 Instance Terraform Module"
+				avatar = "avatars/ec2.png"
 			}
 			
 			auto-scaling-group = {
 				name = "AWS EC2 Auto Scaling Group Terraform Module"
+				avatar = "avatars/auto_scaling.png"
 			}
 			
 			user-data = {
 				name = "AWS EC2 User Data Terraform Module"
+				avatar = "avatars/ec2.png"
 			}
 			
 			lambda = {
 				name = "AWS Lambda Terraform Module"
+				avatar = "avatars/lambda.png"
 			}
 			
 			eks = {
 				name = "AWS EKS Terraform Module"
+				avatar = "avatars/eks.png"
 			}
 			
 			gitlab-project = {
 				name = "GitLab Project Terraform Module"
+				avatar = "avatars/gitlab.png"
 			}
 		}
 	}

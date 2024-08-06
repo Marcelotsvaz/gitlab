@@ -41,7 +41,7 @@ locals {
 
 module project {
 	source = "gitlab.com/vaz-projects/gitlab-project/gitlab"
-	version = "0.1.0"
+	version = "0.2.0"
 	
 	for_each = local.merged_projects
 	
@@ -51,7 +51,9 @@ module project {
 	
 	topics = each.value.topics
 	description = each.value.description
+	avatar = lookup( each.value, "avatar", null )
 	visibility_level = each.value.visibility_level
 	
 	features = each.value.features
+	cicd = each.value.cicd
 }
