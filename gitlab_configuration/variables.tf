@@ -35,6 +35,10 @@ locals {
 					infrastructure_access_level = "enabled"
 					releases_access_level = "enabled"
 				}
+				
+				github_mirror = {
+					name = "gitlab"
+				}
 			}
 			
 			vaz-projects = {
@@ -138,26 +142,57 @@ locals {
 			vpc = {
 				name = "AWS VPC Terraform Module"
 				avatar = "avatars/vpc.png"
+				topics = [
+					"aws",
+				]
+				
+				github_mirror = {
+					name = "terraform-aws-vpc"
+				}
 			}
 			
 			security-group = {
 				name = "AWS Security Group Terraform Module"
 				avatar = "avatars/vpc.png"
+				topics = [
+					"aws",
+				]
+				
+				github_mirror = {
+					name = "terraform-aws-security-group"
+				}
 			}
 			
 			instance = {
 				name = "AWS EC2 Instance Terraform Module"
 				avatar = "avatars/ec2.png"
+				topics = [
+					"aws",
+				]
+				
+				github_mirror = {
+					name = "terraform-aws-instance"
+				}
 			}
 			
 			auto-scaling-group = {
 				name = "AWS EC2 Auto Scaling Group Terraform Module"
 				avatar = "avatars/auto_scaling.png"
+				topics = [
+					"aws",
+				]
+				
+				github_mirror = {
+					name = "terraform-aws-auto-scaling-group"
+				}
 			}
 			
 			user-data = {
 				name = "AWS EC2 User Data Terraform Module"
 				avatar = "avatars/ec2.png"
+				topics = [
+					"aws",
+				]
 				
 				github_mirror = {
 					name = "terraform-external-user-data"
@@ -167,6 +202,9 @@ locals {
 			lambda = {
 				name = "AWS Lambda Terraform Module"
 				avatar = "avatars/lambda.png"
+				topics = [
+					"aws",
+				]
 				
 				github_mirror = {
 					name = "terraform-aws-lambda"
@@ -176,11 +214,25 @@ locals {
 			eks = {
 				name = "AWS EKS Terraform Module"
 				avatar = "avatars/eks.png"
+				topics = [
+					"aws",
+				]
+				
+				github_mirror = {
+					name = "terraform-aws-eks"
+				}
 			}
 			
 			gitlab-project = {
 				name = "GitLab Project Terraform Module"
 				avatar = "avatars/gitlab.png"
+				topics = [
+					"gitlab",
+				]
+				
+				github_mirror = {
+					name = "terraform-gitlab-project"
+				}
 			}
 		}
 	}
