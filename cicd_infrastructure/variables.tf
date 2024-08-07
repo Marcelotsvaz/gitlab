@@ -22,7 +22,7 @@ locals {
 		idle_instances = 0
 		max_instances = 15
 		instance_concurrency = 1
-		instance_use_count = 1
+		instance_use_count = 10
 	}
 	
 	worker = {
