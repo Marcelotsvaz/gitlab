@@ -1,5 +1,11 @@
 variable gitlab_access_token {
-	description = "GitLab Personal Access Token with api scope."
+	description = "GitLab Personal Access Token."
+	type = string
+	sensitive = true
+}
+
+variable github_access_token {
+	description = "GitHub Personal Access Token."
 	type = string
 	sensitive = true
 }
@@ -11,9 +17,6 @@ locals {
 		_defaults = {
 			topics = []
 			visibility_level = "public"
-			
-			features = {}
-			cicd = {}
 		}
 		
 		
@@ -52,6 +55,11 @@ locals {
 					monitor_access_level = "enabled"
 					snippets_access_level = "enabled"
 				}
+				
+				github_mirror = {
+					name = "vaz-projects"
+					homepage_url = "https://vazprojects.com"
+				}
 			}
 			
 			python-project-template = {
@@ -70,6 +78,12 @@ locals {
 					pages_access_level = "enabled"
 					releases_access_level = "enabled"
 				}
+				
+				github_mirror = {
+					name = "python-project-template"
+					homepage_url = "https://gitlab.com/marcelotsvaz/python-project-template"
+					is_template = true
+				}
 			}
 			
 			nbr-5410-calculator = {
@@ -84,6 +98,10 @@ locals {
 					builds_access_level = "enabled"
 					releases_access_level = "enabled"
 				}
+				
+				github_mirror = {
+					name = "nbr-5410-calculator"
+				}
 			}
 			
 			arch-linux-install-script = {
@@ -95,6 +113,10 @@ locals {
 					"linux",
 					"python",
 				]
+				
+				github_mirror = {
+					name = "arch-linux-install-script"
+				}
 			}
 		}
 		
@@ -136,11 +158,19 @@ locals {
 			user-data = {
 				name = "AWS EC2 User Data Terraform Module"
 				avatar = "avatars/ec2.png"
+				
+				github_mirror = {
+					name = "terraform-external-user-data"
+				}
 			}
 			
 			lambda = {
 				name = "AWS Lambda Terraform Module"
 				avatar = "avatars/lambda.png"
+				
+				github_mirror = {
+					name = "terraform-aws-lambda"
+				}
 			}
 			
 			eks = {

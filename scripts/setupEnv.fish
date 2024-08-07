@@ -36,6 +36,7 @@ set -x TF_DATA_DIR $PWD/.staging/terraform/
 
 # Terraform variables.
 set -x TF_VAR_gitlab_access_token $gitlabAccessToken
+set -x TF_VAR_github_access_token $githubAccessToken
 
 
 

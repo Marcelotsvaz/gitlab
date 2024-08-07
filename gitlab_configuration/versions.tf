@@ -6,6 +6,11 @@ terraform {
 			source = "gitlabhq/gitlab"
 			version = "16.6.0"
 		}
+		
+		github = {
+			source = "integrations/github"
+			version = "6.2.3"
+		}
 	}
 	
 	backend http {
@@ -17,4 +22,9 @@ terraform {
 
 provider gitlab {
 	token = var.gitlab_access_token
+}
+
+
+provider github {
+  token = var.github_access_token
 }
