@@ -14,7 +14,12 @@ shutdown_timeout = 60
 	token = '${runner_token}'
 	executor = 'docker-autoscaler'
 	
+	envinronment = [
+		'GIT_STRATEGY=clone',
+	]
+	
 	[runners.feature_flags]
+		FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR = true
 		FF_NETWORK_PER_BUILD = true
 		FF_SCRIPT_SECTIONS = true
 		FF_USE_IMPROVED_URL_MASKING = true
