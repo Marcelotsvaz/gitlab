@@ -28,12 +28,14 @@ shutdown_timeout = 60
 		max_instances = ${runner_max_instances}
 		capacity_per_instance = ${runner_instance_concurrency}
 		max_use_count = ${runner_instance_use_count}
-		policy.idle_time = '30s'
 		
 		delete_instances_on_shutdown = true
 		
 		plugin_config.name = '${runner_auto_scaling_group_name}'
 		connector_config.username = '${runner_worker_user}'
+		
+		[[runners.autoscaler.policy]]
+			idle_time = '30s'
 	
 	[runners.cache]
 		Shared = true
