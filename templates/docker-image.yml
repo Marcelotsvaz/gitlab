@@ -40,4 +40,5 @@ $[[ inputs.jobName ]]:
             --bootstrap
     
     script:
-      - docker compose build --push
+      - docker compose build
+      - docker compose push
