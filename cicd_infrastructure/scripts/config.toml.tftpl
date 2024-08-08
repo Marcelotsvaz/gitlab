@@ -15,12 +15,14 @@ shutdown_timeout = 60
 	executor = 'docker-autoscaler'
 	
 	[runners.feature_flags]
-		FF_USE_IMPROVED_URL_MASKING = true
+		FF_NETWORK_PER_BUILD = true
 		FF_SCRIPT_SECTIONS = true
+		FF_USE_IMPROVED_URL_MASKING = true
 	
 	[runners.docker]
 		image = 'alpine:latest'
-		disable_cache = true
+		privileged = true
+		volumes = [ '/certs/client' ]
 	
 	[runners.autoscaler]
 		plugin = 'aws:1.0.0'
