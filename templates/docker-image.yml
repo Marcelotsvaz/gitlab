@@ -11,8 +11,8 @@ $[[ inputs.jobName ]]:
     
     extends: .buildStage
     
-    services: [ docker:24.0-dind ]
-    image: docker:24.0
+    services: [ docker:27.1.1-dind ]
+    image: docker:27.1.1-cli
     
     tags: [ docker ]
     
@@ -34,11 +34,10 @@ $[[ inputs.jobName ]]:
         # Set up buildx builder instance.
       - docker buildx create gitlab
             --driver docker-container
-            --driver-opt image=moby/buildkit:v0.12.4
+            --driver-opt image=moby/buildkit:v0.15.1
             --name buildkit
             --use
             --bootstrap
     
     script:
-      - docker compose build
-      - docker compose push
+      - docker compose build --push

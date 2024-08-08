@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [2.1.0] - 2024-08-08
+
+### Changed
+- `docker-image` component: Update images.
+
+
 ## [2.0.0] - 2024-01-21
 
 ### Added
@@ -55,6 +61,7 @@
 _Initial release._
 
 
+[2.1.0]: https://gitlab.com/vaz-projects/gitlab/-/releases/2.1.0
 [2.0.0]: https://gitlab.com/vaz-projects/gitlab/-/releases/2.0.0
 [1.3.0]: https://gitlab.com/vaz-projects/gitlab/-/releases/1.3.0
 [1.2.0]: https://gitlab.com/vaz-projects/gitlab/-/releases/1.2.0

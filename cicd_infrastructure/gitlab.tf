@@ -9,6 +9,8 @@ resource gitlab_user_runner main {
 	
 	description = "Main Runner"
 	access_level = "ref_protected"
-	tag_list = []
+	tag_list = [
+		"docker",
+	]
 	maximum_timeout = 3600
 }

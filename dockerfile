@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.6.0
+# syntax = docker/dockerfile:1.9.0
 
 FROM alpine:3.18
 
