@@ -63,6 +63,7 @@ module server_user_data {
 		runner_instance_use_count = local.runner.instance_use_count
 		runner_auto_scaling_group_name = module.worker.name
 		runner_worker_user = local.worker.user
+		runner_idle_time = local.runner.idle_time
 		
 		runner_cache_bucket_name = aws_s3_bucket.runner_cache.id
 		runner_cache_bucket_region = aws_s3_bucket.runner_cache.region

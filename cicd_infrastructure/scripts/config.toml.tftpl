@@ -42,7 +42,7 @@ shutdown_timeout = 60
 		connector_config.username = '${runner_worker_user}'
 		
 		[[runners.autoscaler.policy]]
-			idle_time = '30s'
+			idle_time = '${runner_idle_time}'
 	
 	[runners.cache]
 		Shared = true
