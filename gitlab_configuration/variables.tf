@@ -139,6 +139,18 @@ locals {
 				}
 			}
 			
+			oidc-role = {
+				name = "AWS OpenID Connect IAM Role Terraform Module"
+				avatar = "avatars/iam.png"
+				topics = [
+					"aws",
+				]
+				
+				github_mirror = {
+					name = "terraform-aws-oidc-role"
+				}
+			}
+			
 			vpc = {
 				name = "AWS VPC Terraform Module"
 				avatar = "avatars/vpc.png"
