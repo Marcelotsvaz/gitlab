@@ -29,7 +29,7 @@ data aws_ami main {
 	
 	filter {
 		name = "name"
-		values = [ "VAZ Projects Builder AMI" ]
+		values = [ "${local.project_name} Worker AMI" ]
 	}
 }
 

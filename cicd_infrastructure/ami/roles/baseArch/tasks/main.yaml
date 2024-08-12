@@ -1,0 +1,114 @@
+# 
+# VAZ Projects
+# 
+# 
+# Author: Marcelo Tellier Sartori Vaz <marcelotsvaz@gmail.com>
+
+
+
+  - name: Arch Linux base install
+    become: true
+    
+    block:
+      - name: Update Arch Linux keyring
+        command: pacman --noconfirm --noprogressbar -Sy archlinux-keyring
+        
+        
+      - name: Get packages from all roles
+        set_fact:
+            packages: '{{ packages | default( [] ) + lookup( "vars", item ) }}'
+        with_varnames: ^.+_packages$
+        
+        
+      - name: Run pacstrap
+        command: pacstrap -c {{ mountPoint }} --noprogressbar {{ packages | join( ' ' ) }}
+        
+        
+      - name: Setup DNS
+        file:
+            state: link
+            path: '{{ mountPoint }}/etc/resolv.conf'
+            src: /run/systemd/resolve/resolv.conf
+            force: true
+        
+        
+      - name: Generate fstab
+        shell: genfstab -t PARTUUID {{ mountPoint }} >> {{ mountPoint }}/etc/fstab
+    
+    
+    
+  - name: Arch Linux base configuration
+    become: true
+    connection: community.general.chroot
+    
+    block:
+      - name: Set time zone
+        file:
+            state: link
+            path: /etc/localtime
+            src: /usr/share/zoneinfo/America/Sao_Paulo
+            force: true
+        
+        
+      - name: Enable locales
+        lineinfile:
+            path: /etc/locale.gen
+            regex: ^#?({{ item }})
+            line: '\1'
+            backrefs: true
+        loop:
+          - 'en_US\.UTF-8 UTF-8'
+          - 'pt_BR\.UTF-8 UTF-8'
+        
+        
+      - name: Generate locales
+        command: locale-gen
+        
+        
+      - name: Set locale
+        copy:
+            content: LANG=en_US.UTF-8
+            dest: /etc/locale.conf
+        
+        
+      - name: Copy network unit
+        copy:
+            src: main.network
+            dest: /etc/systemd/network/
+            mode: preserve
+        
+        
+      - name: Enable services
+        systemd:
+            enabled: true
+            name: '{{ item }}'
+        loop:
+          - systemd-networkd
+          - systemd-resolved
+          - systemd-timesyncd
+          - sshd
+        
+        
+      - name: Add wheel group to sudoers
+        copy:
+            content: '%wheel ALL=(ALL) NOPASSWD: ALL'
+            dest: /etc/sudoers.d/wheel
+        
+        
+        
+        # Create unified kernel image.
+        #-------------------------------------------------------------------------------
+      - name: Write kernel parameters
+        copy:
+            content: root=PARTUUID={{ rootPartitionUuid }} rw nomodeset console=ttyS0,9600n8 earlyprintk=serial,ttyS0,9600 loglevel=6
+            dest: /etc/kernel/cmdline
+        
+        
+      - name: Create unified kernel image
+        command: /usr/lib/systemd/ukify
+            /boot/vmlinuz-linux
+            /boot/initramfs-linux.img
+            --cmdline @/etc/kernel/cmdline
+            --os-release @/usr/lib/os-release
+            --splash /usr/share/systemd/bootctl/splash-arch.bmp
+            --output /boot/efi/linux.efi

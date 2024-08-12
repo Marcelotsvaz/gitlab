@@ -1,0 +1,17 @@
+# 
+# VAZ Projects
+# 
+# 
+# Author: Marcelo Tellier Sartori Vaz <marcelotsvaz@gmail.com>
+
+
+
+baseArch_packages:
+  - base
+  - linux
+  - mkinitcpio
+  - efibootmgr
+  - systemd-ukify
+  - sudo
+  - openssh
+  - nano

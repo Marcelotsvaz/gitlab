@@ -1,0 +1,24 @@
+# 
+# VAZ Projects
+# 
+# 
+# Author: Marcelo Tellier Sartori Vaz <marcelotsvaz@gmail.com>
+
+
+
+  - name: Arch Linux install cleanup
+    become: true
+    
+    block:
+      - name: Unmount EFI partition
+        ansible.posix.mount:
+            state: unmounted
+            path: '{{ mountPoint }}/boot/efi'
+            fstab: /tmp/tmp.fstab
+        
+        
+      - name: Unmount root partition
+        ansible.posix.mount:
+            state: unmounted
+            path: '{{ mountPoint }}'
+            fstab: /tmp/tmp.fstab
