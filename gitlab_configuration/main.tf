@@ -41,7 +41,7 @@ locals {
 
 module project {
 	source = "gitlab.com/vaz-projects/gitlab-project/gitlab"
-	version = "0.5.0"
+	version = "0.6.0"
 	
 	for_each = local.merged_projects
 	
